@@ -1,0 +1,33 @@
+{% extends 'base_auth.html'%}
+{% load static %}
+
+{%block content%}
+
+<main class="form-signin">
+  <form action = "/signin" method = "post">
+    {% csrf_token %}
+    <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="55" height="72">
+    <p class="fw-bold">Bienvenido!</p>
+    <h1 class="h4 mb-3 fw-normal">Iniciar sesión</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="username" name="username" placeholder="name@example.com">
+      <label for="floatingInput">Nombre de usuario</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Password">
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</button>
+    <br><br>
+    
+    <p class="fst-italic">¿Aún no tenés cuenta? <a role="button" href="/signup" class="btn btn-link">Registrarte ahora</a></p>
+
+
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+  </form>
+</main>
+{% endblock %}
+

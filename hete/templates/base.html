@@ -1,0 +1,132 @@
+<!-- aca esta todo la base para la pagina web, esto es lo que debo arreglar para que se vea bien -->
+{% load static %}{%include 'modal/category.html'%}{%include 'modal/clientes.html'%}{%include 'modal/menu.html'%}{%include 'modal/delivery.html'%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="{% static 'bootstrap_lib/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'bootstrap_lib/bootstrap.bundle.min.js' %}"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{% static 'styles/offcanvas.css' %}" rel="stylesheet" />
+
+
+    <title>Hetelei</title>
+</head>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+    
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+
+
+<body>
+
+    {% if user.is_authenticated %} {% for message in messages %}{% if "error" in message.tags%}
+    <div class="col-xxl-4 alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Oye!</strong> {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%else%}
+    <div class="col-xxl-4 alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Oye!</strong> {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>{%endif%} {% endfor %}
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Offcanvas navbar</a>
+            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Switch account</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false"><i data-feather="user"> </i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-scroller bg-body shadow-sm">
+        <nav class="nav nav-underline" aria-label="Secondary navigation">
+            <a class="nav-link active" aria-current="page" href="/menu">Menú</a>
+            <a class="nav-link" href="/ordenes"><i data-feather="arrow-up-right"></i>Ordenes
+                <span class="badge bg-light text-dark rounded-pill align-text-bottom">27</span>
+            </a>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#orderModal"><i data-feather="plus-square"></i> Agregar Ordenes</button>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#clientModal"><i data-feather="plus-square"></i> Agregar Clientes</button>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#categoryModal"><i data-feather="plus-square"></i> Categoría de comidas</button>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#menuModal"><i data-feather="plus-square"> </i> Agregar Menú</button>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#deliveryModal"><i data-feather="plus-square"> </i> Agregar Delivery</button>
+            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#deliveryModal"><i data-feather="plus-square"> </i> Agregar Envíos</button>
+        </nav>
+    </div>
+
+    {% block content %} {% endblock content%} {%else%} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Oye!</strong> {{message.tags}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %} {% block content_alien %} {% endblock content_alien%}
+    <h1>No ha iniciado sesión!</h1>
+    <button type="sumbmit"><a href="/signup">Registrarse</a></button>
+    <button type="sumbmit"><a href="/signin">Iniciar sesion</a></button> {% endif %}
+    </main>
+    <script src="{% static 'scripts/offcanvas.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script>
+        feather.replace()
+    </script>
+
+</body>
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2021–2022 Powlar</p>
+    <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+</footer>
+
+</html>

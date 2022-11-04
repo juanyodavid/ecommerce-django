@@ -1,0 +1,9 @@
+{% load i18n %}
+{%autoescape off%}
+Bienvenido a Hetelei
+Hola {{name}}!!
+Por favor confirma tu email ingresando al siguiente link: 
+Link: http://{{domain}}{%url 'activate' uidb64=uid token=token%}
+
+
+{%endautoescape%}   
